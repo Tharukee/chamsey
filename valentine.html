@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Be My Valentine ❤️</title>
+<style>
+  /* Reset & Body */
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  /* Title */
+  h1 {
+    font-size: clamp(24px, 5vw, 42px);
+    color: white;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+    margin-bottom: 50px;
+    padding: 0 20px;
+  }
+
+  /* Options container */
+  .options {
+    display: flex;
+    gap: 60px;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  /* YES Heart */
+  .yes-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .heart-btn {
+    width: 80px;
+    height: 80px;
+    background: #ff4d6d;
+    transform: rotate(-45deg);
+    border: none;
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.2s ease;
+  }
+
+  .heart-btn:before,
+  .heart-btn:after {
+    content: "";
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    background: #ff4d6d;
+    border-radius: 50%;
+  }
+
+  .heart-btn:before { top: -40px; left: 0; }
+  .heart-btn:after  { left: 40px; top: 0; }
+
+  .heart-btn:hover {
+    transform: rotate(-45deg) scale(1.1);
+  }
+
+  .yes-wrap span {
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 18px;
+    color: white;
+    text-shadow: 1px 1px 2px black;
+  }
+
+  /* NO Poop Button */
+  .no-wrap {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  #no {
+    font-size: 56px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    line-height: 1;
+  }
+
+  .no-wrap span {
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 18px;
+    color: white;
+    text-shadow: 1px 1px 2px black;
+    pointer-events: none;
+  }
+
+  /* Floating hearts */
+  .heart {
+    position: absolute;
+    pointer-events: none;
+    animation: float 5s linear infinite;
+    font-size: 20px;
+  }
+
+  @keyframes float {
+    from { transform: translateY(100vh); opacity: 1; }
+    to   { transform: translateY(-10vh); opacity: 0; }
+  }
+</style>
+</head>
+<body>
+
+<h1 id="question">Hi Chamsey, Will you be my Valentine? 😜❤️</h1>
+
+<div class="options">
+  <!-- YES HEART -->
+  <div class="yes-wrap">
+    <button class="heart-btn" onclick="sayYes()"></button>
+    <span>YES</span>
+  </div>
+
+  <!-- NO POOP -->
+  <div class="no-wrap" id="noWrap" onmouseover="moveNo()">
+    <button id="no">💩</button>
+    <span>NO</span>
+  </div>
+</div>
+
+<script>
+let noTexts = [
+  "Are you sure? 😟",
+  "Really sure? 😢",
+  "Think again 🥺",
+  "Don't break my heart 💔",
+  "I'll cry 😭",
+  "Please? 🥹",
+  "Last chance 😭",
+  "You can't escape 😈"
+];
+
+let index = 0;
+
+function moveNo() {
+  const wrap = document.getElementById("noWrap");
+  const margin = 100; // keep some space from edges
+
+  const maxX = window.innerWidth - wrap.offsetWidth - margin;
+  const maxY = window.innerHeight - wrap.offsetHeight - margin;
+
+  wrap.style.position = "absolute";
+  wrap.style.left = Math.random() * maxX + "px";
+  wrap.style.top  = Math.random() * maxY + "px";
+
+  if (index < noTexts.length) {
+    document.getElementById("question").innerText = noTexts[index];
+    index++;
+  }
+}
+
+function sayYes() {
+  document.body.innerHTML = `
+    <h1 style="font-size:clamp(30px, 5vw, 50px); color:white; padding:20px;">
+      YAYYYYY ❤️🥰<br>
+      Congrats, you just got stuck with me 😈😂💕
+    </h1>
+  `;
+}
+
+/* floating hearts */
+setInterval(() => {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "❤️";
+  heart.style.left = Math.random() * 100 + "vw";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 5000);
+}, 400);
+</script>
+
+</body>
+</html>
